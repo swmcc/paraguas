@@ -13,11 +13,14 @@ defmodule PhoenixAppWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", PhoenixAppWeb do
-    pipe_through :browser # Use the default browser stack
+	pipeline :authentication do
+		plug BasicAuth, use_config: {:phoenix_app, :authentication}
+	end
 
-    get "/", PageController, :index
-  end
+	scope "/", PhoenixApp do
+		pipe_through [:browser, :authentication]
+	 get "/", PageController, :index
+	end
 
   # Other scopes may use custom stacks.
   # scope "/api", PhoenixAppWeb do

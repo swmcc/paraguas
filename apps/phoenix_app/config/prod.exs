@@ -61,4 +61,9 @@ config :logger, level: :info
 
 # Finally import the config/prod.secret.exs
 # which should be versioned separately.
+config :phoenix_app, authentication: [
+  username: {:system, "BASIC_AUTH_USERNAME"},
+  password: {:system, "BASIC_AUTH_PASSWORD"},
+  realm:    {:system, "BASIC_AUTH_REALM"}
+]
 import_config "prod.secret.exs"
